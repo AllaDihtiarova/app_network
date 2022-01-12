@@ -19,7 +19,9 @@ function App() {
           <Route path="/articles" element={<Articles />}>
             <Route path=":id" element={<h2>Article</h2>} />
           </Route>
-          <Route path="/addArticle" element={<AddArticle />} />
+          <Route path="/addArticle" element={<AddArticle />}>
+            <Route path=":img" element={<div>Image</div>} />
+          </Route>
           <Route path="/profile" element={<Profile />}>
             <Route path=":title" element={<div>Profile</div>} />
           </Route>

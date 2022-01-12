@@ -8,7 +8,7 @@ export default function Profile() {
   return (
     <>
       <PageHeading text="Profile" />
-      {/^[A-Z]+\D\w+$/.test(title) && <h2>Profile: {params.title}</h2>}
+      {/^[A-Z]+\D\w+$/.test(title) && <h2>Profile: {title}</h2>}
     </>
   )
 }
