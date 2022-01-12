@@ -1,0 +1,13 @@
+version: '3.5'
+
+services:
+  db:
+    image: postgres
+    container_name: socialNetwork
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./db/db_data:/var/lib/postgresql/data
+    ports:
+      - "6543:5432"
