@@ -7,6 +7,7 @@ import Articles from './components/Body/Articles/Articles'
 import AddArticle from './components/Body/AddArticle/AddArticle'
 import Profile from './components/Body/Profile/Profile'
 import NotFound from './components/NotFound/NotFound'
+import CheckDate from './components/CheckDate/CheckDate'
 
 function App() {
   return (
@@ -26,6 +27,8 @@ function App() {
             <Route path=":title" element={<div>Profile</div>} />
           </Route>
           <Route path="*" element={<NotFound />} />
+
+          <Route path="/:date" element={<CheckDate />} />
         </Routes>
       </Container>
     </BrowserRouter>
