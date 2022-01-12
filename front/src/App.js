@@ -13,11 +13,16 @@ function App() {
     <BrowserRouter>
       <Container>
         <Appbar />
+
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/articles" element={<Articles />} />
+          <Route path="/articles" element={<Articles />}>
+            <Route path=":id" element={<h2>Article</h2>} />
+          </Route>
           <Route path="/addArticle" element={<AddArticle />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile />}>
+            <Route path=":title" element={<div>Profile</div>} />
+          </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Container>
