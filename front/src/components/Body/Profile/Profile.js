@@ -3,15 +3,12 @@ import PageHeading from '../../PageHeading/PageHeading'
 
 export default function Profile() {
   let params = useParams()
-  console.log(params)
+  const { title } = params
 
   return (
     <>
       <PageHeading text="Profile" />
-      {/^\w+$/.test(params.title) &&
-      params.title === params.title.toUpperCase() ? (
-        <h2>Article: {params.title}</h2>
-      ) : null}
+      {/^[A-Z]+\D\w+$/.test(title) && <h2>Profile: {params.title}</h2>}
     </>
   )
 }

@@ -3,12 +3,12 @@ import PageHeading from '../../PageHeading/PageHeading'
 
 export default function Articles() {
   let params = useParams()
-  console.log(params)
+  const { id } = params
 
   return (
     <>
       <PageHeading text="Articles" />
-      {!isNaN(params.id) ? <h2>Article: {params.id}</h2> : null}
+      {!isNaN(id) && <h2>Article: {id}</h2>}
     </>
   )
 }
