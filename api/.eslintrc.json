@@ -10,7 +10,7 @@
   },
   "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": "error",
+    "prettier/prettier": ["error", {"singleQuote": true, "parser": "flow", "arrowParens": "avoid"}],
     "object-curly-newline": [
       "error",
       {
@@ -19,6 +19,8 @@
         "ImportDeclaration": "never",
         "ExportDeclaration": { "multiline": true, "minProperties": 3 }
       }
-    ]
+    ],
+    "camelcase": "off",
+    "arrow-parens":"off"
   }
 }

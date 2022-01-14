@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "lint-staged": {
-    "src/**/*.js": "eslint --cache --fix"
+    "src/**/*.js": "eslint --fix"
   },
   "dependencies": {
     "express": "^4.17.2",
