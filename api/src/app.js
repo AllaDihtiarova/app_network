@@ -4,6 +4,7 @@ const { appPort } = require('./services/config');
 
 const usersRoutes = require('./routes/users');
 const postsRoutes = require('./routes/posts');
+const post_likesRoutes = require('./routes/post_likes');
 const commentsRoutes = require('./routes/comments');
 const comment_likesRoutes = require('./routes/comment_likes');
 
@@ -13,6 +14,7 @@ app.use(express.json());
 
 app.use('/users', usersRoutes);
 app.use('/posts', postsRoutes);
+app.use('/post_likes', post_likesRoutes);
 app.use('/comments', commentsRoutes);
 app.use('/comment_likes', comment_likesRoutes);
 
