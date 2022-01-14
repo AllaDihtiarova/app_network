@@ -4,11 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js",
+    "dev": "nodemon -r dotenv/config src/app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "lint-staged": {
+    "src/**/*.js": "eslint --cache --fix"
+  },
   "dependencies": {
     "express": "^4.17.2",
     "knex": "^0.95.15",
@@ -16,6 +21,13 @@
   },
   "devDependencies": {
     "dotenv": "^10.0.0",
-    "nodemon": "^2.0.15"
+    "eslint": "^8.6.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "lint-staged": "^12.1.7",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1"
   }
 }

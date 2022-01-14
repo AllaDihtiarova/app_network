@@ -4,7 +4,8 @@
   "description": "app_network",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,6 @@
   "homepage": "https://github.com/AllaDihtiarova/app_network#readme",
   "dependencies": {},
   "devDependencies": {
-    "eslint": "^8.6.0"
+    "husky": "^7.0.4"
   }
 }
