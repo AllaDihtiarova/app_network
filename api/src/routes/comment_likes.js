@@ -2,17 +2,18 @@ const router = require('express').Router();
 const db = require('../services/db');
 
 router.get('/', async (req, res) => {
-  res.send(await db.select().table('comment_likes'));
+  const commentLikes = await db.select().table('comment_likes');
+  res.send(commentLikes);
 });
 
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
 
-  res.send(
-    await db('comment_likes')
-      .where('id', id)
-      .select('id', 'user_id', 'comment_id'),
-  );
+  const commentLikesId = await db('comment_likes')
+    .where('id', id)
+    .select('id', 'user_id', 'comment_id');
+
+  res.send(commentLikesId);
 });
 
 router.post('/', async (req, res) => {
