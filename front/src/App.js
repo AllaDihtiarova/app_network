@@ -8,12 +8,17 @@ import AddArticle from './components/Body/AddArticle/AddArticle'
 import Profile from './components/Body/Profile/Profile'
 import NotFound from './components/NotFound/NotFound'
 import CheckDate from './components/CheckDate/CheckDate'
+import  UserContainer   from './propTypesTest/userContainer'
+import user from './propTypesTest/data/user.json'
+
+const {name, age, avatar, files, addrr, friends} = user
 
 function App() {
   return (
+
     <BrowserRouter>
       <Container>
-        <Appbar />
+        {/* <Appbar />
 
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -29,7 +34,8 @@ function App() {
           <Route path="*" element={<NotFound />} />
 
           <Route path="/:date" element={<CheckDate />} />
-        </Routes>
+        </Routes> */}
+        <UserContainer name={name} age={age} avatar={avatar} files={files} addrr={addrr} friends={friends}/>
       </Container>
     </BrowserRouter>
   )
