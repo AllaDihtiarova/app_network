@@ -25,11 +25,11 @@ router.post('/', async (req, res) => {
     login,
     firstName,
     lastName,
-    middleName = null,
+    middleName,
     birthday,
     createDate,
-    updateDate = null,
-    cityId = null,
+    updateDate,
+    cityId,
     gender,
   } = req.body;
 
