@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-const File = ({ fileId, fileName, filePath }) => {
+const File = ({ fileId, fileName, filePath, key }) => {
   return (
     <div>
       <p>FileId: {fileId}</p>

@@ -11,15 +11,16 @@ import CheckDate from './components/CheckDate/CheckDate'
 import  UserContainer   from './propTypesTest/userContainer'
 import user from './propTypesTest/data/user.json'
 
+import ErrorBoundary from './components/errorBoundary'
+
 const {name, age, avatar, files, addrr, friends} = user
 
 function App() {
   return (
-
     <BrowserRouter>
-      <Container>
-        {/* <Appbar />
-
+        <Container>
+          <ErrorBoundary>
+        <Appbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/articles" element={<Articles />}>
@@ -32,11 +33,13 @@ function App() {
             <Route path=":title" element={<div>Profile</div>} />
           </Route>
           <Route path="*" element={<NotFound />} />
-
           <Route path="/:date" element={<CheckDate />} />
-        </Routes> */}
-        <UserContainer name={name} age={age} avatar={avatar} files={files} addrr={addrr} friends={friends}/>
-      </Container>
+            </Routes>
+            </ErrorBoundary>
+          <ErrorBoundary>
+            <UserContainer name={name} age={age} avatar={avatar} files={files} addrr={addrr} friends={friends} />
+            </ErrorBoundary>
+        </Container>
     </BrowserRouter>
   )
 }

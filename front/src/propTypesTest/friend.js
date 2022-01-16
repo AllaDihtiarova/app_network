@@ -22,12 +22,12 @@ const Friend = ({ friendName, friendAge, friendAvatar, files, addrr }) => {
   )
 }
 
-// Friend.propTypes = {
-//   friendName: PropTypes.string.isRequired,
-//   friendAge: PropTypes.string.isRequired,
-//   friendAvatar: PropTypes.shape({
-//     PropTypes.object
-//   }),
-// }
+Friend.propTypes = {
+  friendName: PropTypes.string.isRequired,
+  friendAge: PropTypes.string.isRequired,
+  friendAvatar: PropTypes.object.isRequired,
+  files: PropTypes.arrayOf(PropTypes.object.isRequired),
+  addrr: PropTypes.objectOf(PropTypes.object.isRequired)
+}
 
 export default Friend

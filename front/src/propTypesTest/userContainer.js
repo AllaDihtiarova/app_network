@@ -1,6 +1,6 @@
-// import PropTypes from 'prop-types'
-
 import FileList from "./fileList"
+import PropTypes from 'prop-types'
+
 import Addrr from "./addrr"
 import FriendList from "./friendList"
 
@@ -22,6 +22,15 @@ const UserContainer = ({ name, age, avatar, files, addrr, friends }) => {
       <FriendList friends={friends}/>
     </div>
   )
+}
+
+UserContainer.propTypes = {
+  name: PropTypes.string.isRequired,
+  age: PropTypes.string.isRequired,
+  avatar: PropTypes.object.isRequired,
+  files: PropTypes.arrayOf(PropTypes.object.isRequired),
+  addrr: PropTypes.objectOf(PropTypes.object.isRequired),
+  friends: PropTypes.arrayOf(PropTypes.object.isRequired)
 }
 
 export default UserContainer

@@ -1,4 +1,4 @@
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 
 import File from "./file"
 
@@ -14,8 +14,8 @@ const FileList = ({ items }) => {
   )
 }
 
-// FileList.propTypes = {
-//   items: PropTypes.arrayOf(PropTypes.shape({key: PropTypes.number.isRequired,}))
-// }
+FileList.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.number.isRequired,}))
+}
 
 export default FileList

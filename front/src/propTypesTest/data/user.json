@@ -35,7 +35,7 @@
         },
         "friends": [
           {
-            "name": "test",
+            "name": "test friend",
             "age": "23",
             "avatar": {
               "file": {
