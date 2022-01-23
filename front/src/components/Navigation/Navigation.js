@@ -25,7 +25,7 @@ const Navigation = () => (
         to="/articles"
         className={styles.link}
       >
-        Articles
+        Posts
       </NavLink>
 
       <NavLink
@@ -37,7 +37,7 @@ const Navigation = () => (
         to="/addArticle"
         className={styles.link}
       >
-        Add article
+        Add post
       </NavLink>
 
       <NavLink
