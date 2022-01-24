@@ -2,10 +2,10 @@ import React from "react";
 import {useQuery} from 'react-query'
 
 import PageHeading from "../../components/PageHeading/PageHeading";
-import Articles from '../../components/Body/Articles/Articles'
-import { getPost } from "../api/crud";
+import PostsList from "../../components/Body/PostsList/PostsList";
+import { getPost } from "./api/crud";
 
-const PostsContainer = () => {
+const PostsListContainer = () => {
 
   const { isFetching, data } = useQuery('posts', () => getPost())
   const posts = data?.data || []
@@ -14,11 +14,11 @@ const PostsContainer = () => {
     <>
       <PageHeading text="Posts" />
       <ul>
-        {posts.map((post) => (<li key={post.id}><Articles title={post.title} content={post.content_post}/> </li>))}
+        {posts.map((post) => (<li key={post.id}><PostsList title={post.title} content={post.content_post}/> </li>))}
       </ul>
       {isFetching && <div>Loading...</div>}
     </>
   )
 }
 
-export default PostsContainer
+export default PostsListContainer

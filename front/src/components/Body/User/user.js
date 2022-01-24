@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-const ProfileUser = ({ firstName, lastName, birthday, createDate, gender }) => {
+const User = ({ firstName, lastName, birthday, createDate, gender }) => {
   return (
     <>
       <p>First name: {firstName}</p>
@@ -12,7 +12,7 @@ const ProfileUser = ({ firstName, lastName, birthday, createDate, gender }) => {
   )
 }
 
-ProfileUser.propTypes = {
+User.propTypes = {
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
   birthday: PropTypes.string.isRequired,
@@ -20,4 +20,4 @@ ProfileUser.propTypes = {
   gender: PropTypes.string.isRequired
 }
 
-export default ProfileUser
+export default User

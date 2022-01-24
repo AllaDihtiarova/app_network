@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-const Articles = ({ title, content }) => {
+const PostsList = ({ title, content }) => {
   let params = useParams()
   const { id } = params
 
@@ -14,9 +14,9 @@ const Articles = ({ title, content }) => {
   )
 }
 
-Articles.propTypes = {
+PostsList.propTypes = {
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired
 }
 
-export default Articles
+export default PostsList

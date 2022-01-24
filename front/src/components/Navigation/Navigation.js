@@ -22,7 +22,7 @@ const Navigation = () => (
             color: isActive ? '#2196f3' : '',
           }
         }}
-        to="/articles"
+        to="/posts"
         className={styles.link}
       >
         Posts
@@ -46,10 +46,10 @@ const Navigation = () => (
             color: isActive ? '#2196f3' : '',
           }
         }}
-        to="/profile"
+        to="/users"
         className={styles.link}
       >
-        Profile
+        Users
       </NavLink>
     </nav>
     <Outlet />
