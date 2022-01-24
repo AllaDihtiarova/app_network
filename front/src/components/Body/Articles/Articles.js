@@ -1,14 +1,22 @@
 import { useParams } from 'react-router-dom'
-import PageHeading from '../../PageHeading/PageHeading'
+import PropTypes from 'prop-types'
 
-export default function Articles() {
+const Articles = ({ title, content }) => {
   let params = useParams()
   const { id } = params
 
   return (
     <>
-      <PageHeading text="Articles" />
-      {!isNaN(id) && <h2>Article: {id}</h2>}
+      <h2>Title of rost: {title}</h2>
+      <p>Content of post: {content}</p>
+      {!isNaN(id) && <h2>Post: {id}</h2>}
     </>
   )
 }
+
+Articles.propTypes = {
+  title: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired
+}
+
+export default Articles
