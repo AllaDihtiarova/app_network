@@ -1,6 +1,34 @@
+import { useState } from 'react';
+import { Formik, Form, Field } from 'formik'
+import * as Yup from 'yup'
+import Button from '@mui/material/Button';
+// import { useQuery } from "react-query"
+import { useParams } from "react-router-dom"
+import { TextField } from 'formik-mui';
 import PropTypes from 'prop-types'
 
-const User = ({ firstName, lastName, birthday, createDate, gender }) => {
+import { updateUserById } from '../../../containes/UserContainer/api/crud';
+
+const User = ({ firstName, lastName, birthday, createDate, gender, userData }) => {
+
+  const [fName, setFirstName] = useState(userData)
+  console.log(fName)
+  const { userId } = useParams()
+  // const  updateData  = useQuery(`users/${userId}`, () => updateUserById())
+
+  const shema = Yup.object().shape({
+    first_name: Yup.string().required(),
+    last_name: Yup.string().required(),
+    birthday: Yup.date()
+  })
+
+  const onFormSubmit = (data) => {
+    console.log(data)
+    setFirstName(data)
+    updateUserById(userId, data)
+  }
+
+console.log(userData)
   return (
     <>
       <p>First name: {firstName}</p>
@@ -8,6 +36,30 @@ const User = ({ firstName, lastName, birthday, createDate, gender }) => {
       <p>Birthday: {birthday}</p>
       <p>Create Date: {createDate}</p>
       <p>Gender: {gender}</p>
+
+      <Formik initialValues={userData}
+          validationSchema={shema}
+          onSubmit={onFormSubmit}
+        >
+          {({ errors }) => 
+            <>
+              <div>Errors: {JSON.stringify(errors)}</div>
+              <Form>
+                <label >First name: 
+                  <Field component={TextField} type="text" name="first_name" />
+                </label>
+                <label>Last name: 
+                  <Field component={TextField} type="text" name="last_name" />
+                </label>  
+                <label>Birthday: 
+                  <Field component={TextField} type="date" name="birthday" />
+                </label>
+                <Button type="submit" variant="contained" color="success">Save</Button>
+              </Form>
+            </>
+          }
+          
+        </Formik>
     </>
   )
 }
@@ -17,7 +69,12 @@ User.propTypes = {
   lastName: PropTypes.string.isRequired,
   birthday: PropTypes.string.isRequired,
   createDate: PropTypes.string.isRequired,
-  gender: PropTypes.string.isRequired
+  gender: PropTypes.string.isRequired,
+  userData: PropTypes.shape({
+    first_name: PropTypes.string.isRequired,
+    last_name: PropTypes.string.isRequired,
+    birthday: PropTypes.string
+  }) 
 }
 
 export default User
