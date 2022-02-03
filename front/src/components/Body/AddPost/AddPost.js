@@ -1,10 +1,16 @@
+import { useState } from 'react';
+import { useParams } from "react-router-dom"
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 import Button from '@mui/material/Button';
 import { TextField } from 'formik-mui';
 import PropTypes from 'prop-types'
 
-const AddPost = ({postData}) => {
+import { updatePostById } from '../../../containes/AddPostContainer/api/crud';
+
+const AddPost = ({ postData }) => {
+  const [newPost, setNewPost] = useState(postData)
+  const { postId } = useParams()
 
   const shema = Yup.object().shape({
     title: Yup.string().required(),
@@ -13,9 +19,9 @@ const AddPost = ({postData}) => {
 
   const onPostSubmit = (data) => {
     console.log(data)
+    setNewPost(data)
+    updatePostById(postId, data)
   }
-
-console.log(postData)
 
     return (
     <>

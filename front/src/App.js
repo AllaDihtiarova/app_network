@@ -9,8 +9,10 @@ import UsersListContainer from './containes/UsersListContainer/UsersListContaine
 import UserContainer from './containes/UserContainer/UserContainer'
 import NotFound from './components/NotFound/NotFound'
 import UserFormContainer from './containes/Form/Form'
+import AddNewPost from './components/Body/AddNewPost/AddNewPost'
 
 import ErrorBoundary from './components/errorBoundary'
+import AddNewPostContainer from './containes/AddNewPostContainer/AddNewPostContainer'
 
 function App() {
   return (
@@ -23,7 +25,8 @@ function App() {
               <Route path="/posts" element={<PostsListContainer />}/>         
               <Route path="/posts/:postId" element={<AddPostContainer />}/>         
               <Route path="/users" element={<UsersListContainer />}/>            
-              <Route path="/users/:userId" element={<UserContainer/>}/> 
+              <Route path="/users/:userId" element={<UserContainer />} /> 
+              <Route path="/post" element={<AddNewPostContainer/>}/>
               <Route path="*" element={<NotFound />} />
               <Route path="/login/:loginId" element={<UserFormContainer/>}/>
             </Routes>

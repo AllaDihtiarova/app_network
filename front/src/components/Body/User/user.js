@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 import Button from '@mui/material/Button';
-// import { useQuery } from "react-query"
 import { useParams } from "react-router-dom"
 import { TextField } from 'formik-mui';
 import PropTypes from 'prop-types'
@@ -12,10 +11,8 @@ import { updateUserById } from '../../../containes/UserContainer/api/crud';
 const User = ({ firstName, lastName, birthday, createDate, gender, userData }) => {
 
   const [fName, setFirstName] = useState(userData)
-  console.log(fName)
   const { userId } = useParams()
-  // const  updateData  = useQuery(`users/${userId}`, () => updateUserById())
-
+ 
   const shema = Yup.object().shape({
     first_name: Yup.string().required(),
     last_name: Yup.string().required(),

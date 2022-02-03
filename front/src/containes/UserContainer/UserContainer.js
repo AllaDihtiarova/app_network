@@ -12,7 +12,6 @@ const UserContainer = () => {
   const userData = {
     name: user[0]
   }
-  console.log(data)
      
   return (
     <>
