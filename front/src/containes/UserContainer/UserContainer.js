@@ -10,6 +10,7 @@ const UserContainer = () => {
   const { userId } = useParams()
   const { isFetching, data } = useQuery(`users/${userId}`, () => getUserById(userId))
   const user = data?.data || []
+  console.log(data)
     
   return (
     <>

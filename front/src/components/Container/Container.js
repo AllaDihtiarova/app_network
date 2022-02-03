@@ -1,13 +1,16 @@
+import { Container } from '@mui/material';
 import PropTypes from 'prop-types'
 
-import styles from './Container.module.css'
+// import styles from './Container.module.css'
 
-const Container = ({ children }) => {
-  return <div className={styles.container}>{children}</div>
+const NetworkContainer = ({ children }) => {
+  return (
+    <Container maxWidth="sm">{children}</Container>
+  )
 }
 
 Container.propTypes = {
   children: PropTypes.node
 }
 
-export default Container 
+export default NetworkContainer 

@@ -34,18 +34,6 @@ const Navigation = () => (
             color: isActive ? '#2196f3' : '',
           }
         }}
-        to="/addArticle"
-        className={styles.link}
-      >
-        Add post
-      </NavLink>
-
-      <NavLink
-        style={({ isActive }) => {
-          return {
-            color: isActive ? '#2196f3' : '',
-          }
-        }}
         to="/users"
         className={styles.link}
       >

@@ -1,5 +1,6 @@
 import React from "react";
-import {useQuery} from 'react-query'
+import { useQuery } from 'react-query'
+import { LoadingButton } from '@mui/lab';
 
 import PageHeading from "../../components/PageHeading/PageHeading";
 import PostsList from "../../components/Body/PostsList/PostsList";
@@ -16,7 +17,11 @@ const PostsListContainer = () => {
       <ul>
         {posts.map((post) => (<li key={post.id}><PostsList title={post.title} content={post.content_post}/> </li>))}
       </ul>
-      {isFetching && <div>Loading...</div>}
+      {isFetching && 
+        <LoadingButton loading variant="outlined">
+          Submit
+        </LoadingButton>
+      }
     </>
   )
 }
