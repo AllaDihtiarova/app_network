@@ -1,10 +1,16 @@
-import { Formik, Form, Field } from 'formik'
-import * as Yup from 'yup'
+import { useState } from 'react';
+import { useParams } from "react-router-dom";
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 import Button from '@mui/material/Button';
 import { TextField } from 'formik-mui';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
-const UserForm = ({userData}) => {
+import { updateLoginById } from "../../containes/UpdateLoginContainer/api/crud";
+
+const UpdateLogin = ({ userData }) => {
+  const [newLogin, setNewLogin] = useState(userData)
+  const { loginId } = useParams()
 
   const shema = Yup.object().shape({
     login: Yup.string().required(),
@@ -13,14 +19,13 @@ const UserForm = ({userData}) => {
   })
 
   const onFormSubmit = (data) => {
-    console.log(data)
+    setNewLogin(data)
+    updateLoginById(loginId, data)
   }
-
-console.log(userData)
 
     return (
     <>
-        <Formik initialValues={userData}
+        <Formik initialValues={newLogin}
           validationSchema={shema}
           onSubmit={onFormSubmit}
         >
@@ -47,7 +52,7 @@ console.log(userData)
   )
 }
 
-UserForm.propTypes = {
+UpdateLogin.propTypes = {
   userData: PropTypes.shape({
     login: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
@@ -55,4 +60,4 @@ UserForm.propTypes = {
   })
 }
 
-export default UserForm
+export default UpdateLogin

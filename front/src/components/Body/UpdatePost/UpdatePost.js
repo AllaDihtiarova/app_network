@@ -6,9 +6,9 @@ import Button from '@mui/material/Button';
 import { TextField } from 'formik-mui';
 import PropTypes from 'prop-types'
 
-import { updatePostById } from '../../../containes/AddPostContainer/api/crud';
+import { updatePostById } from '../../../containes/UpdatePostContainer/api/crud';
 
-const AddPost = ({ postData }) => {
+const UpdatePost = ({ postData }) => {
   const [newPost, setNewPost] = useState(postData)
   const { postId } = useParams()
 
@@ -18,14 +18,13 @@ const AddPost = ({ postData }) => {
   })
 
   const onPostSubmit = (data) => {
-    console.log(data)
     setNewPost(data)
     updatePostById(postId, data)
   }
 
     return (
     <>
-        <Formik initialValues={postData}
+        <Formik initialValues={newPost}
           validationSchema={shema}
           onSubmit={onPostSubmit}
         >
@@ -50,11 +49,11 @@ const AddPost = ({ postData }) => {
   )
 }
 
-AddPost.propTypes = {
+UpdatePost.propTypes = {
   userData: PropTypes.shape({
     title: PropTypes.string.isRequired,
     content_post: PropTypes.string.isRequired
   })
 }
 
-export default AddPost
+export default UpdatePost

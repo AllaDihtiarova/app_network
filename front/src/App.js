@@ -4,13 +4,11 @@ import NetworkContainer from './components/Container/Container'
 import Appbar from './components/AppBar/AppBar'
 import HomePage from './components/Body/HomePage/HomePage'
 import PostsListContainer from './containes/PostsListContainer/PostsListContainer'
-import AddPostContainer from './containes/AddPostContainer/AddPostContainer'
+import UpdatePostContainer from './containes/UpdatePostContainer/AddPostContainer'
 import UsersListContainer from './containes/UsersListContainer/UsersListContainer'
 import UserContainer from './containes/UserContainer/UserContainer'
 import NotFound from './components/NotFound/NotFound'
-import UserFormContainer from './containes/Form/Form'
-import AddNewPost from './components/Body/AddNewPost/AddNewPost'
-
+import UpdateLoginContainer from './containes/UpdateLoginContainer/UpdateLoginContainer'
 import ErrorBoundary from './components/errorBoundary'
 import AddNewPostContainer from './containes/AddNewPostContainer/AddNewPostContainer'
 
@@ -23,12 +21,12 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/posts" element={<PostsListContainer />}/>         
-              <Route path="/posts/:postId" element={<AddPostContainer />}/>         
+              <Route path="/posts/:postId" element={<UpdatePostContainer />}/>         
               <Route path="/users" element={<UsersListContainer />}/>            
               <Route path="/users/:userId" element={<UserContainer />} /> 
               <Route path="/post" element={<AddNewPostContainer/>}/>
               <Route path="*" element={<NotFound />} />
-              <Route path="/login/:loginId" element={<UserFormContainer/>}/>
+              <Route path="/login/:loginId" element={<UpdateLoginContainer/>}/>
             </Routes>
           </ErrorBoundary>
         </NetworkContainer>

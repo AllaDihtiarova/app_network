@@ -9,8 +9,6 @@ import { getUsers } from "./api/crud";
 const UsersListContainer = () => {
   const { isFetching, data } = useQuery('users', () => getUsers())
   const users = data?.data || []
-
-  console.log(users)
   
   return (
     <>

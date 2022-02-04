@@ -19,10 +19,7 @@ const UserContainer = () => {
       <ul>
         {user.map((us) => (<li key={us.id}><User firstName={us.first_name} lastName={us.last_name} birthday={us.birthday} createDate={us.create_date} gender={ us.gender} userData={userData.name}/></li>))}
       </ul>
-      {/* <ul>
-        {user.map((log) => (<li key={ log.id}><User userData={userData.name}/></li>))}
-      </ul> */}
-      
+          
       {isFetching && <div>Loading...</div>}
     </>
   )
