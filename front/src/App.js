@@ -1,34 +1,37 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import Container from './components/Container/Container'
+import NetworkContainer from './components/Container/Container'
 import Appbar from './components/AppBar/AppBar'
 import HomePage from './components/Body/HomePage/HomePage'
 import PostsListContainer from './containes/PostsListContainer/PostsListContainer'
-import AddPost from './components/Body/AddPost/AddPost'
+import AddPostContainer from './containes/AddPostContainer/AddPostContainer'
 import UsersListContainer from './containes/UsersListContainer/UsersListContainer'
 import UserContainer from './containes/UserContainer/UserContainer'
 import NotFound from './components/NotFound/NotFound'
-// import Form from './components/Form/Form'
+import UserFormContainer from './containes/Form/Form'
+import AddNewPost from './components/Body/AddNewPost/AddNewPost'
 
 import ErrorBoundary from './components/errorBoundary'
+import AddNewPostContainer from './containes/AddNewPostContainer/AddNewPostContainer'
 
 function App() {
   return (
     <BrowserRouter>
-        <Container>
+        <NetworkContainer>
           <ErrorBoundary>
-            <Appbar />
+          <Appbar />
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/posts" element={<PostsListContainer />}/>         
-              <Route path="/addArticle" element={<AddPost />}/>         
+              <Route path="/posts/:postId" element={<AddPostContainer />}/>         
               <Route path="/users" element={<UsersListContainer />}/>            
-              <Route path="/users/:userId" element={<UserContainer/>}/> 
-            <Route path="*" element={<NotFound />} />
-            {/* <Route path="/single" element={<Form/>}/> */}
+              <Route path="/users/:userId" element={<UserContainer />} /> 
+              <Route path="/post" element={<AddNewPostContainer/>}/>
+              <Route path="*" element={<NotFound />} />
+              <Route path="/login/:loginId" element={<UserFormContainer/>}/>
             </Routes>
           </ErrorBoundary>
-        </Container>
+        </NetworkContainer>
     </BrowserRouter>
   )
 }

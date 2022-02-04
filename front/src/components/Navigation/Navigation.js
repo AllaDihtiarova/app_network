@@ -34,10 +34,10 @@ const Navigation = () => (
             color: isActive ? '#2196f3' : '',
           }
         }}
-        to="/addArticle"
+        to="/users"
         className={styles.link}
       >
-        Add post
+        Users
       </NavLink>
 
       <NavLink
@@ -46,10 +46,10 @@ const Navigation = () => (
             color: isActive ? '#2196f3' : '',
           }
         }}
-        to="/users"
+        to="/post"
         className={styles.link}
       >
-        Users
+        Add new post
       </NavLink>
     </nav>
     <Outlet />
