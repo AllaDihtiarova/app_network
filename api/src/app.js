@@ -10,6 +10,7 @@ const post_likesRoutes = require('./routes/post_likes');
 const commentsRoutes = require('./routes/comments');
 const comment_likesRoutes = require('./routes/comment_likes');
 const fileUpload = require('./routes/upload.route');
+const loginsRoutes = require('./routes/logins');
 
 const app = express();
 
@@ -29,5 +30,6 @@ app.use('/post_likes', post_likesRoutes);
 app.use('/comments', commentsRoutes);
 app.use('/comment_likes', comment_likesRoutes);
 app.use('/upload', fileUpload);
+app.use('/logins', loginsRoutes);
 
 app.listen(appPort, () => {});

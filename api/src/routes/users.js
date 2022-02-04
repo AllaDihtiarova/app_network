@@ -11,7 +11,14 @@ router.get('/:id', async (req, res) => {
   const { id } = req.params;
   const user = await db('users')
     .where('id', id)
-    .select('id', 'first_name', 'last_name');
+    .select(
+      'id',
+      'first_name',
+      'last_name',
+      'birthday',
+      'gender',
+      'create_date',
+    );
 
   res.send(user.length > 0 ? user : `User with id ${id} not found`);
 });
