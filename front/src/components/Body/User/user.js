@@ -20,12 +20,10 @@ const User = ({ firstName, lastName, birthday, createDate, gender, userData }) =
   })
 
   const onFormSubmit = (data) => {
-    console.log(data)
     setFirstName(data)
     updateUserById(userId, data)
   }
 
-console.log(userData)
   return (
     <>
       <p>First name: {firstName}</p>
@@ -34,7 +32,7 @@ console.log(userData)
       <p>Create Date: {createDate}</p>
       <p>Gender: {gender}</p>
 
-      <Formik initialValues={userData}
+      <Formik initialValues={fName}
           validationSchema={shema}
           onSubmit={onFormSubmit}
         >
