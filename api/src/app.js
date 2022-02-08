@@ -1,35 +1,31 @@
 const express = require('express');
-const path = require('path');
 const cors = require('cors');
 
 const { appPort } = require('./services/config');
 
 const usersRoutes = require('./routes/users');
 const postsRoutes = require('./routes/posts');
-const post_likesRoutes = require('./routes/post_likes');
+const postLikesRoutes = require('./routes/postLikes');
 const commentsRoutes = require('./routes/comments');
-const comment_likesRoutes = require('./routes/comment_likes');
-const fileUpload = require('./routes/upload.route');
-const loginsRoutes = require('./routes/logins');
+const commentLikesRoutes = require('./routes/commentLikes');
+const fileUpload = require('./routes/uploadAvatar');
+const cloudFileUpload = require('./routes/cloudUploadAvatar');
+const getAvatar = require('./routes/getAvatar');
 
 const app = express();
 
-app.use(
-  express.json({
-    extended: true,
-  }),
-);
-
-app.use('images', express.static(path.join(__dirname, 'images')));
+app.use(express.json());
+app.use('/images', express.static('images'));
 
 app.use(cors());
 
 app.use('/users', usersRoutes);
 app.use('/posts', postsRoutes);
-app.use('/post_likes', post_likesRoutes);
+app.use('/posts-likes', postLikesRoutes);
 app.use('/comments', commentsRoutes);
-app.use('/comment_likes', comment_likesRoutes);
-app.use('/upload', fileUpload);
-app.use('/logins', loginsRoutes);
+app.use('/comments-likes', commentLikesRoutes);
+app.use('/uploads', fileUpload);
+app.use('/cloud-uploads', cloudFileUpload);
+app.use('/get-avatar', getAvatar);
 
 app.listen(appPort, () => {});

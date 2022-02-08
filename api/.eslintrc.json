@@ -10,7 +10,10 @@
   },
   "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": ["error", {"singleQuote": true, "parser": "flow", "arrowParens": "avoid"}],
+    "prettier/prettier": [
+      "error",
+      { "singleQuote": true, "parser": "flow", "arrowParens": "avoid" }
+    ],
     "object-curly-newline": [
       "error",
       {
@@ -20,8 +23,12 @@
         "ExportDeclaration": { "multiline": true, "minProperties": 3 }
       }
     ],
-    "operator-linebreak": ["error", "after"],
-    "camelcase": "off",
-    "arrow-parens":"off"
+    "operator-linebreak": [
+      "error",
+      "after",
+      { "overrides": { "?": "before", ":": "before" } }
+    ],
+    "arrow-parens": ["error", "as-needed"],
+    "no-console": ["error", { "allow": ["warn", "error"] }]
   }
 }

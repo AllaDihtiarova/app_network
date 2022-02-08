@@ -1,83 +1,53 @@
 const router = require('express').Router();
-const db = require('../services/db');
 
-router.get('/', async (req, res) => {
-  const comments = await db.select().table('comments');
+const {
+  getAllComents,
+  getComentById,
+  getReplyById,
+  addComment,
+  updateComment,
+  deleteComment,
+} = require('../services/store/comments.service');
 
-  res.send(comments);
-});
+const { getLikesByComentId } = require('../services/store/likes.service');
+
+router.get('/', async (req, res) => res.send(await getAllComents()));
 
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
 
-  const comment = await db('comments')
-    .where('id', id)
-    .select('id', 'comment_content', 'user_id', 'post_id');
-
-  res.send(comment.length > 0 ? comment : `Comment with ${id} not found`);
+  res.send(await getComentById(id));
 });
 
 router.get('/:id/likes', async (req, res) => {
   const { id } = req.params;
 
-  const likes = await db('comment_likes')
-    .where('comment_id', id)
-    .select('id', 'user_id', 'comment_id');
-
-  res.send(likes.length > 0 ? likes : 'No likes');
+  res.send(await getLikesByComentId(id));
 });
 
 router.get('/:id/reply', async (req, res) => {
   const { id } = req.params;
 
-  const replyTo = await db('comments')
-    .where('reply_to_id', id)
-    .select('id', 'user_id', 'comment_content', 'reply_to_id');
-
-  res.send(replyTo.length > 0 ? replyTo : 'No reply');
+  res.send(await getReplyById(id));
 });
 
 router.post('/', async (req, res) => {
   const { commentContent, createDate, userId, postId } = req.body;
 
-  try {
-    await db('comments').insert({
-      comment_content: `${commentContent}`,
-      create_date: `${createDate}`,
-      user_id: `${userId}`,
-      post_id: `${postId}`,
-    });
-  } catch (e) {
-    res.send('Something is wrong');
-    return;
-  }
-
-  res.send('Comment add to database');
+  res.send(await addComment(commentContent, createDate, userId, postId));
 });
 
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
   const data = req.body;
 
-  const updateComment = await db('comments').where('id', id).update(data);
-
-  res.send(
-    updateComment
-      ? `Comment id ${id} info updated`
-      : `Comment with id ${id} not found`,
-  );
+  res.send(await updateComment(id, data));
 });
 
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
 
-  const deleteComment = await db('comments').where('id', id).del('id');
-
-  res.send(
-    deleteComment.length > 0
-      ? `Comment id ${id} deleted`
-      : `Comment id ${id} not found`,
-  );
+  res.send(await deleteComment(id));
 });
 
 module.exports = router;
