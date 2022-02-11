@@ -1,5 +1,7 @@
 const router = require('express').Router();
 
+const asyncErrorHandler = require('../services/asyncErrorHandler');
+
 const {
   getAllComents,
   getComentById,
@@ -9,45 +11,106 @@ const {
   deleteComment,
 } = require('../services/store/comments.service');
 
-const { getLikesByComentId } = require('../services/store/likes.service');
+const {
+  getAllLikesToComents,
+  getLikesByComentId,
+  getLikeByIdToComment,
+  addLikeToComment,
+  deleteLikeToComment,
+} = require('../services/store/likes.service');
 
-router.get('/', async (req, res) => res.send(await getAllComents()));
+router.get(
+  '/',
+  asyncErrorHandler(async (req, res) => res.send(await getAllComents())),
+);
 
-router.get('/:id', async (req, res) => {
-  const { id } = req.params;
+router.get(
+  '/likes/',
+  asyncErrorHandler(async (req, res) => {
+    res.send(await getAllLikesToComents());
+  }),
+);
 
-  res.send(await getComentById(id));
-});
+router.get(
+  '/:id',
+  asyncErrorHandler(async (req, res) => {
+    const { id } = req.params;
 
-router.get('/:id/likes', async (req, res) => {
-  const { id } = req.params;
+    res.send(await getComentById(id));
+  }),
+);
 
-  res.send(await getLikesByComentId(id));
-});
+router.get(
+  '/likes/:id',
+  asyncErrorHandler(async (req, res) => {
+    const { id } = req.params;
 
-router.get('/:id/reply', async (req, res) => {
-  const { id } = req.params;
+    res.send(await getLikeByIdToComment(id));
+  }),
+);
 
-  res.send(await getReplyById(id));
-});
+router.get(
+  '/:id/likes',
+  asyncErrorHandler(async (req, res) => {
+    const { id } = req.params;
 
-router.post('/', async (req, res) => {
-  const { commentContent, createDate, userId, postId } = req.body;
+    res.send(await getLikesByComentId(id));
+  }),
+);
 
-  res.send(await addComment(commentContent, createDate, userId, postId));
-});
+router.get(
+  '/:id/reply',
+  asyncErrorHandler(async (req, res) => {
+    const { id } = req.params;
 
-router.put('/:id', async (req, res) => {
-  const { id } = req.params;
-  const data = req.body;
+    res.send(await getReplyById(id));
+  }),
+);
 
-  res.send(await updateComment(id, data));
-});
+router.post(
+  '/',
+  asyncErrorHandler(async (req, res) => {
+    const { commentContent, createDate, userId, postId } = req.body;
 
-router.delete('/:id', async (req, res) => {
-  const { id } = req.params;
+    res.send(await addComment(commentContent, createDate, userId, postId));
+  }),
+);
 
-  res.send(await deleteComment(id));
-});
+router.post(
+  '/likes/',
+  asyncErrorHandler(async (req, res) => {
+    const { userId, commentId } = req.body;
+
+    res.send(await addLikeToComment(userId, commentId));
+  }),
+);
+
+router.put(
+  '/:id',
+  asyncErrorHandler(async (req, res) => {
+    const { id } = req.params;
+    const data = req.body;
+
+    res.send(await updateComment(id, data));
+  }),
+);
+
+router.delete(
+  '/:id',
+  asyncErrorHandler(async (req, res) => {
+    const { id } = req.params;
+
+    res.send(await deleteComment(id));
+  }),
+);
+
+router.delete(
+  '/likes/:id',
+  asyncErrorHandler(async (req, res) => {
+    const { id } = req.params;
+
+    res.send(await deleteLikeToComment(id));
+  }),
+);
 
 module.exports = router;

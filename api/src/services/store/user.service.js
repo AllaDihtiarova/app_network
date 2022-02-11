@@ -1,4 +1,4 @@
-const db = require('../db');
+const db = require('../../utils/db');
 
 module.exports = {
   getAllUsers: async () => {
@@ -21,13 +21,29 @@ module.exports = {
         'birthday',
         'create_date',
         'gender',
-      );
+      )
+      .first();
 
-    if (user.length === 0) {
+    if (!user) {
       return `User with id ${id} not found`;
     }
 
     return user;
+  },
+
+  getAvatar: async id => {
+    const avatar = await db
+      .column('avatar', 'avatar_id')
+      .select()
+      .from('users')
+      .where('id', id)
+      .first();
+
+    if (!avatar) {
+      return `User avatar with id ${id} not found`;
+    }
+
+    return avatar;
   },
 
   addUser: async (
@@ -81,7 +97,30 @@ module.exports = {
       });
       return 'User add';
     } catch (e) {
-      return e;
+      await db('errors').insert({
+        errors: e,
+        data: e.message,
+      });
+      return `Error code ${e.code}. User not add`;
+    }
+  },
+
+  changeAvatar: async (id, link, publicId) => {
+    try {
+      await db('users')
+        .where('id', id)
+        .update({
+          avatar: `${link}`,
+          avatar_id: `${publicId}`,
+        });
+
+      return `Avatar user id ${id} change`;
+    } catch (e) {
+      await db('errors').insert({
+        errors: e,
+        data: e.message,
+      });
+      return `Error code ${e.code}. Avatar user id ${id} not updated`;
     }
   },
 
@@ -91,7 +130,11 @@ module.exports = {
 
       return `User with id ${id} updated`;
     } catch (e) {
-      return e;
+      await db('errors').insert({
+        errors: e,
+        data: e.message,
+      });
+      return `Error code ${e.code}. User with id ${id} not updated`;
     }
   },
 
@@ -105,7 +148,28 @@ module.exports = {
         });
       return `User id ${id} deleted`;
     } catch (e) {
-      return e;
+      await db('errors').insert({
+        errors: e,
+        data: e.message,
+      });
+      return `Error code ${e.code}. User with id ${id} not delted`;
+    }
+  },
+
+  deleteAvatar: async id => {
+    try {
+      await db('users').where('id', id).update({
+        avatar: null,
+        avatar_id: null,
+      });
+
+      return `Avatar user id ${id} was deleted`;
+    } catch (e) {
+      await db('errors').insert({
+        errors: e,
+        data: e.message,
+      });
+      return `Error code ${e.code}. Avatar user id ${id} not deleted`;
     }
   },
 };

@@ -1,4 +1,4 @@
-const db = require('../db');
+const db = require('../../utils/db');
 
 module.exports = {
   getLikesByComentId: async id => {
@@ -38,9 +38,10 @@ module.exports = {
   getLikeByIdToComment: async id => {
     const commentLikeId = await db('comment_likes')
       .where('id', id)
-      .select('id', 'user_id', 'comment_id');
+      .select('id', 'user_id', 'comment_id')
+      .first();
 
-    if (commentLikeId.length === 0) {
+    if (!commentLikeId) {
       return 'No likes!';
     }
 
@@ -54,8 +55,12 @@ module.exports = {
         comment_id: `${commentId}`,
       });
       return `Like to comment id ${commentId} add`;
-    } catch (error) {
-      return error;
+    } catch (e) {
+      await db('errors').insert({
+        errors: e,
+        data: e.message,
+      });
+      return `Error code ${e.code}. Something went wrong :-(`;
     }
   },
 
@@ -80,9 +85,10 @@ module.exports = {
   getLikeByIdToPost: async id => {
     const postLike = await db('post_likes')
       .where('id', id)
-      .select('id', 'user_id', 'post_id');
+      .select('id', 'user_id', 'post_id')
+      .first();
 
-    if (postLike.length === 0) {
+    if (!postLike) {
       return 'No likes!';
     }
 
@@ -96,8 +102,12 @@ module.exports = {
         post_id: `${postId}`,
       });
       return `Like to post id ${postId} add`;
-    } catch (error) {
-      return error;
+    } catch (e) {
+      await db('errors').insert({
+        errors: e,
+        data: e.message,
+      });
+      return `Error code ${e.code}. Something went wrong :-(`;
     }
   },
 

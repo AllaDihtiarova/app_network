@@ -1,4 +1,4 @@
-const db = require('../db');
+const db = require('../../utils/db');
 
 module.exports = {
   getAllPosts: async () => {
@@ -14,9 +14,10 @@ module.exports = {
   getPostById: async id => {
     const post = await db('posts')
       .where('id', id)
-      .select('id', 'user_id', 'title', 'content_post');
+      .select('id', 'user_id', 'title', 'content_post')
+      .first();
 
-    if (post.length === 0) {
+    if (!post) {
       return `Post with id ${id} not found`;
     }
 
@@ -34,7 +35,11 @@ module.exports = {
 
       return 'Post add';
     } catch (e) {
-      return e;
+      await db('errors').insert({
+        errors: e,
+        data: e.message,
+      });
+      return `Error code ${e.code}. Something went wrong :-(`;
     }
   },
 
@@ -44,7 +49,11 @@ module.exports = {
 
       return `Post with id ${id} updated`;
     } catch (e) {
-      return e;
+      await db('errors').insert({
+        errors: e,
+        data: e.message,
+      });
+      return `Error code ${e.code}. Something went wrong :-(`;
     }
   },
 
@@ -52,7 +61,7 @@ module.exports = {
     const postDeleted = await db('posts').where('id', id).del('id');
 
     return postDeleted.length > 0
-      ? `Comment id ${id} deleted`
-      : `Comment id ${id} not found`;
+      ? `Post id ${id} deleted`
+      : `Post id ${id} not found`;
   },
 };

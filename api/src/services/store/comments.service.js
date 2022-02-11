@@ -1,4 +1,4 @@
-const db = require('../db');
+const db = require('../../utils/db');
 
 module.exports = {
   getAllComents: async () => {
@@ -14,9 +14,10 @@ module.exports = {
   getComentById: async id => {
     const comment = await db('comments')
       .where('id', id)
-      .select('id', 'comment_content', 'user_id', 'post_id');
+      .select('id', 'comment_content', 'user_id', 'post_id')
+      .first();
 
-    if (comment.length === 0) {
+    if (!comment) {
       return `Comment with id ${id} not found`;
     }
 
@@ -58,7 +59,11 @@ module.exports = {
 
       return `Comment to post ${postId} add`;
     } catch (e) {
-      return e;
+      await db('errors').insert({
+        errors: e,
+        data: e.message,
+      });
+      return `Error code ${e.code}. Something went wrong :-(`;
     }
   },
 
@@ -68,7 +73,11 @@ module.exports = {
 
       return `Comment with id ${id} updated`;
     } catch (e) {
-      return `Comment with id ${id} not updated`;
+      await db('errors').insert({
+        errors: e,
+        data: e.message,
+      });
+      return `Error code ${e.code}. Comment with id ${id} not updated`;
     }
   },
 
