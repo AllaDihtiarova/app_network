@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
 export default function AutocompleteFormic(props) {
-  const [inputValue, setInputValue] = React.useState('');
+  const [inputValue, setInputValue] = React.useState('all_users');
 
   return (
     <div>
@@ -16,8 +16,7 @@ export default function AutocompleteFormic(props) {
         onInputChange={(_, newInputValue) => {
           setInputValue(newInputValue);
         }}
-        sx={{ width: 300 }}
-        renderInput={(props) => <TextField {...props} label="visible to" name="accessId" />}
+        renderInput={(props) => <div ref={props.InputProps.ref}><TextField {...props}  label="visible to" /></div>}
       />
     </div>
   );

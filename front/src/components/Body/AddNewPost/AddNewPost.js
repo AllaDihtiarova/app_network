@@ -23,18 +23,20 @@ const AddNewPost = () => {
     title: Yup.string().required(),
     contentPost: Yup.string().required(),
     createDate: Yup.date().required(),
-    userId: Yup.number().required()
+    userId: Yup.number().required(),
+    access: Yup.number()
   })
 
   const onPostSubmit = (data) => {
-    addPost(data)
+    addPost({ ...data, accessId: value })
+    console.log(data)
   }
 
     return (
       <>
         <div>{`value: ${value !== null ? `${value}` : 'null'}`}</div>
         <Formik
-          initialValues={{ userId: 7, createDate: crDate, title: '', contentPost: "", accessId: 1 }}
+          initialValues={{ userId: 7, createDate: crDate, title: '', contentPost: ""}}
           validationSchema={shema}
           onSubmit={onPostSubmit}>
           {({ errors }) =>
@@ -59,10 +61,12 @@ const AddNewPost = () => {
                 </label>
                   <Field
                     component={AutocompleteFormic}
+                    name="access"
                     options={options}
                     onChange={(event, newValue) => {
-                    setValue(newValue.value)
-                    }}>
+                      setValue(newValue.value)
+                  }}
+                  >
                   </Field>
                 <Button type='submit' variant="contained">Save</Button>
               </Form>
