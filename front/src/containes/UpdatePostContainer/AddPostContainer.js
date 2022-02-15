@@ -8,17 +8,15 @@ import { getPosts } from "../UpdatePostContainer/api/crud";
 const UpdatePostContainer = () => {
   const { postId } = useParams()
   const { data } = useQuery(`posts/${postId}`, () => getPosts(postId))
-  const post = data?.data || []
+  const post = data?.data || {}
   const postData = {
-    name: post[0]
+    name: post
   }
   
   return (
     <>
       <PageHeading text="Update post" />
-      <ul>
-        {post.map((p) => (<li key={ p.id}><UpdatePost postData={postData.name}/></li>))}
-      </ul>
+      <UpdatePost postData={postData.name}/>
     </>
   )
 }

@@ -26,7 +26,7 @@ function App() {
               <Route path="/users/:userId" element={<UserContainer />} /> 
               <Route path="/post" element={<AddNewPostContainer/>}/>
               <Route path="*" element={<NotFound />} />
-              <Route path="/login/:loginId" element={<UpdateLoginContainer/>}/>
+              <Route path="/login/:loginId" element={<UpdateLoginContainer />} />
             </Routes>
           </ErrorBoundary>
         </NetworkContainer>
