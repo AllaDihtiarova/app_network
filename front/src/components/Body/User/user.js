@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useQuery } from 'react-query'
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 import Button from '@mui/material/Button';
@@ -7,11 +8,23 @@ import { TextField } from 'formik-mui';
 import PropTypes from 'prop-types'
 
 import { updateUserById } from '../../../containes/UserContainer/api/crud';
+import AutocompleteFormic from '../../FormicAutocomplete/Autocomplete';
+import { getAllAccess } from '../../../containes/AccessListContainer/api/crud';
+import UploadImage from '../../UploadImage/UploadImage';
 
 const User = ({ firstName, lastName, birthday, createDate, gender, userData }) => {
+  const { userId } = useParams()
+
+  const { data } = useQuery('posts/access', () => getAllAccess())
+  const access = data?.data || []
+
+  const options = access.map((ac) => {
+  const option = { value: ac.id, label: ac.access_type }
+    return option
+  })
+  const [value, setValue] = useState(options[0]);
 
   const [fName, setFirstName] = useState(userData)
-  const { userId } = useParams()
  
   const shema = Yup.object().shape({
     first_name: Yup.string().required(),
@@ -21,10 +34,10 @@ const User = ({ firstName, lastName, birthday, createDate, gender, userData }) =
 
   const onFormSubmit = (data) => {
     setFirstName(data)
-    updateUserById(userId, data)
+    updateUserById(userId, { ...data, id_access_type: value })
   }
 
-  return (
+   return (
     <>
       <p>First name: {firstName}</p>
       <p>Last name: {lastName}</p>
@@ -49,27 +62,23 @@ const User = ({ firstName, lastName, birthday, createDate, gender, userData }) =
                 <label>Birthday: 
                   <Field component={TextField} type="date" name="birthday" />
                 </label>
+                <Field
+                    component={AutocompleteFormic}
+                    name="access"
+                    options={options}
+                    onChange={(event, newValue) => {
+                      setValue(newValue.value)
+                  }}
+                >
+                </Field>
+                <Field component={ UploadImage }/>             
                 <Button type="submit" variant="contained" color="success">Save</Button>
               </Form>
             </>
-          }
-          
+          } 
         </Formik>
     </>
   )
-}
-
-User.propTypes = {
-  firstName: PropTypes.string.isRequired,
-  lastName: PropTypes.string.isRequired,
-  birthday: PropTypes.string.isRequired,
-  createDate: PropTypes.string.isRequired,
-  gender: PropTypes.string.isRequired,
-  userData: PropTypes.shape({
-    first_name: PropTypes.string.isRequired,
-    last_name: PropTypes.string.isRequired,
-    birthday: PropTypes.string
-  }) 
 }
 
 export default User

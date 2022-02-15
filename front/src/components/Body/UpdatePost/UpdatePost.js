@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useQuery } from 'react-query'
 import { useParams } from "react-router-dom"
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
@@ -6,9 +7,19 @@ import Button from '@mui/material/Button';
 import { TextField } from 'formik-mui';
 import PropTypes from 'prop-types'
 
+import AutocompleteFormic from '../../FormicAutocomplete/Autocomplete';
 import { updatePostById } from '../../../containes/UpdatePostContainer/api/crud';
+import { getAllAccess } from '../../../containes/AccessListContainer/api/crud';
+import UploadImage from '../../UploadImage/UploadImage';
 
-const UpdatePost = ({ postData }) => {
+const UpdatePost = ({ postData}) => {
+  const { data } = useQuery('posts/access', () => getAllAccess())
+  const access = data?.data || []
+  const options = access.map((ac) => {
+  const option = { value: ac.id, label: ac.access_type }
+    return option
+   })
+  const [value, setValue] = useState(options[0]);
   const [newPost, setNewPost] = useState(postData)
   const { postId } = useParams()
 
@@ -19,7 +30,7 @@ const UpdatePost = ({ postData }) => {
 
   const onPostSubmit = (data) => {
     setNewPost(data)
-    updatePostById(postId, data)
+    updatePostById(postId, { ...data, access_type_id: value } )
   }
 
     return (
@@ -39,6 +50,16 @@ const UpdatePost = ({ postData }) => {
                   Content:
                   <Field component={TextField} type="text" name="content_post" />
                 </label>
+                <Field
+                    component={AutocompleteFormic}
+                    name="access"
+                    options={options}
+                    onChange={(event, newValue) => {
+                      setValue(newValue.value)
+                  }}
+                >
+                </Field>
+                <Field component={ UploadImage}/>
                 <Button type='submit' variant="contained">Save</Button>
               </Form>
             </>

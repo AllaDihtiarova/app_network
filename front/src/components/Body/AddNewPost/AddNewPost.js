@@ -8,17 +8,18 @@ import { TextField } from 'formik-mui';
 import { addPost } from '../../../containes/AddNewPostContainer/api/crud'
 import { getAllAccess } from '../../../containes/AccessListContainer/api/crud';
 import AutocompleteFormic from '../../FormicAutocomplete/Autocomplete';
+import UploadImage from '../../UploadImage/UploadImage';
 
 const AddNewPost = () => {
   const { data } = useQuery('posts/access', () => getAllAccess())
   const access = data?.data || []
-   const options = access.map((ac) => {
-    const option = { value: ac.id, label: ac.access_type }
+  const options = access.map((ac) => {
+  const option = { value: ac.id, label: ac.access_type }
     return option
   })
   const [value, setValue] = React.useState(options[0]);
   const crDate = Date.now()
-  console.log(value, setValue)
+  
   const shema = Yup.object().shape({
     title: Yup.string().required(),
     contentPost: Yup.string().required(),
@@ -29,7 +30,6 @@ const AddNewPost = () => {
 
   const onPostSubmit = (data) => {
     addPost({ ...data, accessId: value })
-    console.log(data)
   }
 
     return (
@@ -68,7 +68,8 @@ const AddNewPost = () => {
                   }}
                   >
                   </Field>
-                <Button type='submit' variant="contained">Save</Button>
+                  <Field component={ UploadImage}/>
+                  <Button type='submit' variant="contained">Save</Button>
               </Form>
             </>
           }
