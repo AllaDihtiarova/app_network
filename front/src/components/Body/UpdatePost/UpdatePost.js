@@ -33,6 +33,10 @@ const UpdatePost = ({ postData}) => {
     updatePostById(postId, { ...data, access_type_id: value } )
   }
 
+  const changeAccess = (_, newValue) => {
+    setValue(newValue.value)
+  }
+
     return (
     <>
         <Formik initialValues={newPost}
@@ -54,9 +58,7 @@ const UpdatePost = ({ postData}) => {
                     component={AutocompleteFormic}
                     name="access"
                     options={options}
-                    onChange={(event, newValue) => {
-                      setValue(newValue.value)
-                  }}
+                    onChange={changeAccess}
                 >
                 </Field>
                 <Field component={ UploadImage}/>

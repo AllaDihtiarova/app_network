@@ -37,6 +37,10 @@ const User = ({ firstName, lastName, birthday, createDate, gender, userData }) =
     updateUserById(userId, { ...data, id_access_type: value })
   }
 
+  const changeAccess = (_, newValue) => {
+    setValue(newValue.value)
+  }
+
    return (
     <>
       <p>First name: {firstName}</p>
@@ -66,9 +70,7 @@ const User = ({ firstName, lastName, birthday, createDate, gender, userData }) =
                     component={AutocompleteFormic}
                     name="access"
                     options={options}
-                    onChange={(event, newValue) => {
-                      setValue(newValue.value)
-                  }}
+                    onChange={changeAccess}
                 >
                 </Field>
                 <Field component={ UploadImage }/>             

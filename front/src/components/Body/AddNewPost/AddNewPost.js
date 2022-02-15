@@ -32,6 +32,10 @@ const AddNewPost = () => {
     addPost({ ...data, accessId: value })
   }
 
+  const changeAccess = (_, newValue) => {
+    setValue(newValue.value)
+  }
+
     return (
       <>
         <div>{`value: ${value !== null ? `${value}` : 'null'}`}</div>
@@ -63,9 +67,7 @@ const AddNewPost = () => {
                     component={AutocompleteFormic}
                     name="access"
                     options={options}
-                    onChange={(event, newValue) => {
-                      setValue(newValue.value)
-                  }}
+                    onChange={changeAccess}
                   >
                   </Field>
                   <Field component={ UploadImage}/>
