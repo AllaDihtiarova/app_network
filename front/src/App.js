@@ -1,21 +1,29 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import NetworkContainer from './components/Container/Container'
-import Appbar from './components/AppBar/AppBar'
-import HomePage from './components/Body/HomePage/HomePage'
-import PostsListContainer from './containes/PostsListContainer/PostsListContainer'
-import UpdatePostContainer from './containes/UpdatePostContainer/AddPostContainer'
-import UsersListContainer from './containes/UsersListContainer/UsersListContainer'
-import UserContainer from './containes/UserContainer/UserContainer'
-import NotFound from './components/NotFound/NotFound'
-import UpdateLoginContainer from './containes/UpdateLoginContainer/UpdateLoginContainer'
-import ErrorBoundary from './components/errorBoundary'
-import AddNewPostContainer from './containes/AddNewPostContainer/AddNewPostContainer'
+import NetworkContainer from './components/Container/Container';
+import Appbar from './components/AppBar/AppBar';
+import HomePage from './components/Body/HomePage/HomePage';
+import PostsListContainer from './containes/PostsListContainer/PostsListContainer';
+import UpdatePostContainer from './containes/UpdatePostContainer/AddPostContainer';
+import UsersListContainer from './containes/UsersListContainer/UsersListContainer';
+import UserContainer from './containes/UserContainer/UserContainer';
+import NotFound from './components/NotFound/NotFound';
+import UpdateLoginContainer from './containes/UpdateLoginContainer/UpdateLoginContainer';
+import ErrorBoundary from './components/errorBoundary';
+import AddNewPostContainer from './containes/AddNewPostContainer/AddNewPostContainer';
+import authContext from './authContext';
 
 function App() {
   return (
     <BrowserRouter>
-        <NetworkContainer>
+      <NetworkContainer>
+        <authContext.Provider value={{
+          authenticated: false,
+          firstName: 'Alla',
+          lastName: 'Dihtiarova',
+          birthday: Date(),
+          createDate: Date(),
+          gender: 'Femail',}}>
           <ErrorBoundary>
           <Appbar />
             <Routes>
@@ -29,7 +37,8 @@ function App() {
               <Route path="/login/:loginId" element={<UpdateLoginContainer />} />
             </Routes>
           </ErrorBoundary>
-        </NetworkContainer>
+        </authContext.Provider>
+      </NetworkContainer>
     </BrowserRouter>
   )
 }
