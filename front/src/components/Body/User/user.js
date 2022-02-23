@@ -1,18 +1,22 @@
-import { useState } from 'react';
-import { useQuery } from 'react-query'
+import { useState, useContext } from 'react';
+import { useQuery } from 'react-query';
 import { Formik, Form, Field } from 'formik'
-import * as Yup from 'yup'
+import * as Yup from 'yup';
 import Button from '@mui/material/Button';
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
 import { TextField } from 'formik-mui';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 import { updateUserById } from '../../../containes/UserContainer/api/crud';
 import AutocompleteFormic from '../../FormicAutocomplete/Autocomplete';
 import { getAllAccess } from '../../../containes/AccessListContainer/api/crud';
 import UploadImage from '../../UploadImage/UploadImage';
+import authContext from '../../../authContext';
+import BasicModal from '../../Modal/Modal';
 
-const User = ({ firstName, lastName, birthday, createDate, gender, userData }) => {
+const User = ({ userData }) => {
+  const {firstName, lastName, birthday, createDate, gender} = useContext(authContext)
+  
   const { userId } = useParams()
 
   const { data } = useQuery('posts/access', () => getAllAccess())
@@ -50,30 +54,34 @@ const User = ({ firstName, lastName, birthday, createDate, gender, userData }) =
       <p>Gender: {gender}</p>
 
       <Formik initialValues={fName}
-          validationSchema={shema}
-          onSubmit={onFormSubmit}
-        >
-          {({ errors }) => 
-            <>
-              <div>Errors: {JSON.stringify(errors)}</div>
+        validationSchema={shema}
+        onSubmit={onFormSubmit}
+      >
+        {({ errors }) => 
+          <>
+            <div>Errors: {JSON.stringify(errors)}</div>
               <Form>
-                <label >First name: 
-                  <Field component={TextField} type="text" name="first_name" />
-                </label>
-                <label>Last name: 
-                  <Field component={TextField} type="text" name="last_name" />
-                </label>  
-                <label>Birthday: 
-                  <Field component={TextField} type="date" name="birthday" />
-                </label>
-                <Field
-                    component={AutocompleteFormic}
-                    name="access"
-                    options={options}
-                    onChange={changeAccess}
-                >
-                </Field>
-                <Field component={ UploadImage }/>             
+                <Field component={UploadImage} />
+                <BasicModal body={ 
+                  <div>
+                    <label >First name: 
+                      <Field component={TextField} type="text" name="first_name" />
+                    </label>
+                    <label>Last name: 
+                      <Field component={TextField} type="text" name="last_name" />
+                    </label>  
+                    <label>Birthday: 
+                      <Field component={TextField} type="date" name="birthday" />
+                    </label>
+                    <Field
+                      component={AutocompleteFormic}
+                      name="access"
+                      options={options}
+                      onChange={changeAccess}
+                    >
+                    </Field>
+                  </div>
+                }></BasicModal>
                 <Button type="submit" variant="contained" color="success">Save</Button>
               </Form>
             </>
@@ -81,6 +89,14 @@ const User = ({ firstName, lastName, birthday, createDate, gender, userData }) =
         </Formik>
     </>
   )
+}
+
+User.propTypes = {
+  userData: PropTypes.shape({
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    birthday: PropTypes.func
+  })
 }
 
 export default User
